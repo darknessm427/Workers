@@ -1,6 +1,6 @@
 # Clean IP Scanner Telegram Bot
 
-
+Robot example:@Ip_finder_scanbot
 
 A powerful Telegram bot built on **Cloudflare Workers** to find clean IPs from Cloudflare, Fastly, and WARP services. It's fast, serverless, and easy to deploy.
 
@@ -73,6 +73,8 @@ Follow these steps to deploy your own instance of the bot.
 
 ---
 ## 🇮🇷 فارسی
+
+نمونه ربات : @Ip_finder_scanbot
 
 ### ✨ ویژگی‌ها
 
