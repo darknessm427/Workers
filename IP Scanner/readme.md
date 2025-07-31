@@ -4,7 +4,7 @@
 
 A powerful Telegram bot built on **Cloudflare Workers** to find clean IPs from Cloudflare, Fastly, and WARP services. It's fast, serverless, and easy to deploy.
 
-[**English**](#-english) | [**فارسی**](#-فارسی)
+[**🇬🇧English**](#-english) | [**🇮🇷فارسی**](#-فارسی)
 
 ---
 ## 🇬🇧 English
