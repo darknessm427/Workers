@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت وبهوک تلگرام</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Light Theme Palette */
+            --bg-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --text-color: #3d3d3d;
+            --heading-color: #1a1a1a;
+            --muted-text: #5c5c5c;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --input-bg: rgba(242, 242, 242, 0.9);
+            --input-border: #d9d9d9;
+            --input-focus-glow: rgba(0, 123, 255, 0.3);
+            --primary-btn-bg: #007bff;
+            --secondary-btn-bg: #28a745;
+            --danger-btn-bg: #dc3545;
+            --info-btn-bg: #17a2b8;
+            --success-bg: rgba(40, 167, 69, 0.1);
+            --success-border: #28a745;
+            --error-bg: rgba(220, 53, 69, 0.1);
+            --error-border: #dc3545;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --switch-bg: #ccc;
+            --header-icon-bg: rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode {
+            /* Dark Theme Palette */
+            --bg-image: linear-gradient(135deg, #1f2029 0%, #121218 100%);
+            --card-bg: rgba(28, 28, 38, 0.8);
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --muted-text: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --input-bg: rgba(0, 0, 0, 0.25);
+            --input-border: rgba(255, 255, 255, 0.2);
+            --input-focus-glow: rgba(131, 58, 180, 0.4);
+            --primary-btn-bg: #833ab4;
+            --secondary-btn-bg: #01b18e;
+            --danger-btn-bg: #c13584;
+            --info-btn-bg: #6c757d;
+            --success-bg: rgba(40, 167, 69, 0.15);
+            --error-bg: rgba(220, 53, 69, 0.15);
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --switch-bg: #555;
+            --header-icon-bg: rgba(255,255,255,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html[lang="en"] body { font-family: 'Poppins', sans-serif; }
+        html[lang="fa"] body { font-family: 'Vazirmatn', sans-serif; }
+
+        body {
+            display: flex; flex-direction: column;
+            justify-content: space-between; align-items: center;
+            min-height: 100vh;
+            background-image: var(--bg-image);
+            background-attachment: fixed;
+            color: var(--text-color);
+            padding: 40px 20px;
+            transition: background-image 0.4s ease, color 0.4s ease;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 750px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px var(--shadow-color);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+        .header-title { text-align: center; flex-grow: 1; }
+        .header-title h1 { color: var(--heading-color); margin-bottom: 5px; font-size: 1.8rem; }
+        .header-title p { color: var(--muted-text); font-size: 0.9rem; }
+        
+        .header-controls { display: flex; align-items: center; gap: 15px; }
+        .lang-switcher { font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--muted-text); transition: color .3s; padding: 5px; }
+        .lang-switcher:hover { color: var(--heading-color); }
+        
+        .section { margin-bottom: 25px; }
+        .section h2 { color: var(--heading-color); font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);}
+
+        .input-group, .checkbox-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; }
+        input[type="text"], input[type="url"] {
+            width: 100%; padding: 12px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            border-radius: 8px; color: var(--text-color);
+            font-size: 16px; transition: all 0.3s ease;
+            text-align: left; direction: ltr;
+        }
+        input:focus {
+            outline: none; border-color: var(--primary-btn-bg);
+            box-shadow: 0 0 0 3px var(--input-focus-glow);
+        }
+
+        .checkbox-group { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+
+        details { border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-top: 10px; }
+        summary { font-weight: 700; cursor: pointer; color: var(--heading-color); }
+        details > div { margin-top: 15px; }
+
+        .button-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .button-grid button {
+            padding: 12px; border: none; border-radius: 8px; color: #fff;
+            font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .button-grid button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .button-grid button:active { transform: translateY(0); }
+        .button-grid .btn-primary { background-color: var(--primary-btn-bg); }
+        .button-grid .btn-secondary { background-color: var(--secondary-btn-bg); }
+        .button-grid .btn-danger { background-color: var(--danger-btn-bg); }
+        .button-grid .btn-info { background-color: var(--info-btn-bg); }
+        .button-grid button:disabled { background-color: var(--muted-text); cursor: not-allowed; transform: none; box-shadow: none;}
+
+        .result-area { margin-top: 25px; }
+        #api-response-wrapper {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 15px;
+            transition: all 0.4s ease;
+        }
+        #api-response-wrapper.success { border-color: var(--success-border); background-color: var(--success-bg); }
+        #api-response-wrapper.error { border-color: var(--error-border); background-color: var(--error-bg); }
+        #api-response { white-space: pre-wrap; word-break: break-all; text-align: left; direction: ltr; font-family: monospace; }
+        
+        #url-result-wrapper { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
+        #resultUrl { flex-grow: 1; padding: 10px; background: var(--input-bg); border-radius: 8px; white-space: pre-wrap; word-break: break-all; text-align: left; direction: ltr; font-family: monospace; }
+        #qr-code img { border-radius: 8px; display: block; }
+
+        /* --- Theme Switcher Styles --- */
+        .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--switch-bg); transition: .4s; border-radius: 28px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider:before { transform: translateX(22px); }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+        }
+        footer a {
+            font-size: 1.2rem;
+            color: var(--muted-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: var(--heading-color);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .main-container { padding: 20px; }
+            .header-title h1 { font-size: 1.5rem; }
+            .button-grid { grid-template-columns: 1fr 1fr; }
+            #url-result-wrapper { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+    <main class="main-container">
+        <header>
+            <button class="lang-switcher" id="lang-toggle" title="Change Language">🌐</button>
+            <div class="header-title">
+                <h1 data-lang-key="mainTitle">پنل وبهوک تلگرام</h1>
+                <p data-lang-key="subTitle">ابزار کامل مدیریت و تست وبهوک</p>
+            </div>
+            <div class="theme-switcher">
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <section class="section">
+            <h2 data-lang-key="section1Title">۱. اطلاعات اصلی</h2>
+            <div class="input-group">
+                <label for="botToken" data-lang-key="botTokenLabel">توکن ربات (Bot Token)</label>
+                <input type="text" id="botToken" data-lang-key-placeholder="botTokenPlaceholder" placeholder="توکن دریافتی از BotFather" required>
+            </div>
+            <div class="input-group">
+                <label for="workerUrl" data-lang-key="workerUrlLabel">آدرس ورکر (Worker URL)</label>
+                <input type="url" id="workerUrl" data-lang-key-placeholder="workerUrlPlaceholder" placeholder="آدرس کامل ورکر شما (برای setWebhook)">
+            </div>
+            <label class="checkbox-group">
+                <input type="checkbox" id="save-info">
+                <span data-lang-key="saveInfoLabel">ذخیره اطلاعات در این مرورگر</span>
+            </label>
+        </section>
+
+        <section class="section">
+            <h2 data-lang-key="section2Title">۲. ابزارها و عملیات</h2>
+            <details>
+                <summary data-lang-key="advancedSettings">تنظیمات پیشرفته وبهوک</summary>
+                <div>
+                    <div class="input-group">
+                        <label for="allowed-updates" data-lang-key="allowedUpdatesLabel">آپدیت‌های مجاز (allowed_updates)</label>
+                        <input type="text" id="allowed-updates" data-lang-key-placeholder="allowedUpdatesPlaceholder" placeholder="اختیاری: message,edited_message,callback_query">
+                    </div>
+                    <div class="input-group">
+                        <label for="secret-token" data-lang-key="secretTokenLabel">توکن مخفی (secret_token)</label>
+                        <input type="text" id="secret-token" data-lang-key-placeholder="secretTokenPlaceholder" placeholder="اختیاری: یک رشته امن برای هدر X-Telegram-Bot-Api-Secret-Token">
+                    </div>
+                </div>
+            </details>
+            <div class="button-grid" style="margin-top: 15px;">
+                <button class="btn-primary" id="set-btn" data-lang-key="setWebhookBtn">🚀 تنظیم وبهوک</button>
+                <button class="btn-secondary" id="getinfo-btn" data-lang-key="getWebhookInfoBtn">ℹ️ دریافت اطلاعات</button>
+                <button class="btn-danger" id="delete-btn" data-lang-key="deleteWebhookBtn">🗑️ حذف وبهوک</button>
+                <button class="btn-info" id="getme-btn" data-lang-key="getMeBtn">✅ تست توکن</button>
+            </div>
+        </section>
+
+        <section class="result-area section">
+            <h2 data-lang-key="section3Title">۳. نتایج</h2>
+            <div id="result-wrapper" style="display: none;">
+                <div id="url-result-wrapper" style="display: none; margin-bottom: 15px;">
+                     <pre id="resultUrl"></pre>
+                     <div id="qr-code"></div>
+                </div>
+                <div id="api-response-wrapper">
+                    <pre id="api-response" data-lang-key="apiResponsePlaceholder">پاسخ سرور در اینجا نمایش داده می‌شود.</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="https://t.me/Paradise_Of_Freedom" target="_blank" rel="noopener noreferrer">ÐΛɌ₭ᑎΞ𐒡𐒡🗽𓄂𓆃</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = {
+                html: document.documentElement,
+                botToken: document.getElementById('botToken'),
+                workerUrl: document.getElementById('workerUrl'),
+                saveInfo: document.getElementById('save-info'),
+                allowedUpdates: document.getElementById('allowed-updates'),
+                secretToken: document.getElementById('secret-token'),
+                themeToggle: document.getElementById('theme-toggle'),
+                langToggle: document.getElementById('lang-toggle'),
+                resultWrapper: document.getElementById('result-wrapper'),
+                urlResultWrapper: document.getElementById('url-result-wrapper'),
+                resultUrl: document.getElementById('resultUrl'),
+                qrCode: document.getElementById('qr-code'),
+                apiResponseWrapper: document.getElementById('api-response-wrapper'),
+                apiResponse: document.getElementById('api-response'),
+                buttons: {
+                    set: document.getElementById('set-btn'),
+                    getInfo: document.getElementById('getinfo-btn'),
+                    delete: document.getElementById('delete-btn'),
+                    getMe: document.getElementById('getme-btn'),
+                }
+            };
+            
+            const translations = {
+                fa: {
+                    mainTitle: "پنل وبهوک تلگرام",
+                    subTitle: "ابزار کامل مدیریت و تست وبهوک",
+                    section1Title: "۱. اطلاعات اصلی",
+                    botTokenLabel: "توکن ربات (Bot Token)",
+                    botTokenPlaceholder: "توکن دریافتی از BotFather",
+                    workerUrlLabel: "آدرس ورکر (Worker URL)",
+                    workerUrlPlaceholder: "آدرس کامل ورکر شما (برای setWebhook)",
+                    saveInfoLabel: "ذخیره اطلاعات در این مرورگر",
+                    section2Title: "۲. ابزارها و عملیات",
+                    advancedSettings: "تنظیمات پیشرفته وبهوک",
+                    allowedUpdatesLabel: "آپدیت‌های مجاز (allowed_updates)",
+                    allowedUpdatesPlaceholder: "اختیاری: message,edited_message,callback_query",
+                    secretTokenLabel: "توکن مخفی (secret_token)",
+                    secretTokenPlaceholder: "اختیاری: یک رشته امن برای هدر X-Telegram-Bot-Api-Secret-Token",
+                    setWebhookBtn: "🚀 تنظیم وبهوک",
+                    getWebhookInfoBtn: "ℹ️ دریافت اطلاعات",
+                    deleteWebhookBtn: "🗑️ حذف وبهوک",
+                    getMeBtn: "✅ تست توکن",
+                    section3Title: "۳. نتایج",
+                    apiResponsePlaceholder: "پاسخ سرور در اینجا نمایش داده می‌شود.",
+                    alertToken: "لطفاً توکن ربات را وارد کنید.",
+                    alertWorkerUrl: "برای تنظیم وبهوک، آدرس ورکر الزامی است.",
+                    apiCalling: "در حال ارسال درخواست...",
+                    apiError: "خطا در برقراری ارتباط:",
+                    apiErrorDetails: "(ممکن است به دلیل CORS یا مشکلات شبکه باشد)"
+                },
+                en: {
+                    mainTitle: "Telegram Webhook Panel",
+                    subTitle: "A complete tool to manage and test webhooks",
+                    section1Title: "1. Core Information",
+                    botTokenLabel: "Bot Token",
+                    botTokenPlaceholder: "Token received from BotFather",
+                    workerUrlLabel: "Worker URL",
+                    workerUrlPlaceholder: "Your full worker URL (for setWebhook)",
+                    saveInfoLabel: "Save info in this browser",
+                    section2Title: "2. Tools & Actions",
+                    advancedSettings: "Advanced Webhook Settings",
+                    allowedUpdatesLabel: "Allowed Updates",
+                    allowedUpdatesPlaceholder: "Optional: message,edited_message,callback_query",
+                    secretTokenLabel: "Secret Token",
+                    secretTokenPlaceholder: "Optional: a secret string for the X-Telegram-Bot-Api-Secret-Token header",
+                    setWebhookBtn: "🚀 Set Webhook",
+                    getWebhookInfoBtn: "ℹ️ Get Info",
+                    deleteWebhookBtn: "🗑️ Delete Webhook",
+                    getMeBtn: "✅ Test Token",
+                    section3Title: "3. Results",
+                    apiResponsePlaceholder: "Server response will be displayed here.",
+                    alertToken: "Please enter the bot token.",
+                    alertWorkerUrl: "Worker URL is required to set a webhook.",
+                    apiCalling: "Sending request...",
+                    apiError: "Connection Error:",
+                    apiErrorDetails: "(This could be due to CORS or network issues)"
+                }
+            };
+            
+            // --- Language Manager ---
+            let currentLang = localStorage.getItem('language') || 'fa';
+            const setLanguage = (lang) => {
+                elements.html.lang = lang;
+                elements.html.dir = lang === 'fa' ? 'rtl' : 'ltr';
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    el.textContent = translations[lang][key];
+                });
+                document.querySelectorAll('[data-lang-key-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key-placeholder');
+                    el.placeholder = translations[lang][key];
+                });
+                localStorage.setItem('language', lang);
+                currentLang = lang;
+            };
+            elements.langToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'fa' ? 'en' : 'fa';
+                setLanguage(newLang);
+            });
+
+
+            // --- Theme Manager (Default Dark) ---
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+            elements.themeToggle.checked = savedTheme === 'dark';
+            elements.themeToggle.addEventListener('change', () => {
+                const isDarkMode = elements.themeToggle.checked;
+                document.body.classList.toggle('dark-mode', isDarkMode);
+                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            });
+
+            // --- Data Persistence ---
+            if (localStorage.getItem('saveInfo') === 'true') {
+                elements.saveInfo.checked = true;
+                elements.botToken.value = localStorage.getItem('botToken') || '';
+                elements.workerUrl.value = localStorage.getItem('workerUrl') || '';
+            }
+            elements.saveInfo.addEventListener('change', () => {
+                localStorage.setItem('saveInfo', elements.saveInfo.checked);
+                if (elements.saveInfo.checked) {
+                    saveInputs();
+                } else {
+                    localStorage.removeItem('botToken');
+                    localStorage.removeItem('workerUrl');
+                }
+            });
+            const saveInputs = () => {
+                if (elements.saveInfo.checked) {
+                    localStorage.setItem('botToken', elements.botToken.value);
+                    localStorage.setItem('workerUrl', elements.workerUrl.value);
+                }
+            };
+            
+            // --- API Call Engine ---
+            const makeApiCall = async (endpoint, options = {}) => {
+                const token = elements.botToken.value.trim();
+                if (!token) {
+                    alert(translations[currentLang].alertToken);
+                    return;
+                }
+                
+                elements.resultWrapper.style.display = 'block';
+                if (!options.isSetWebhook) { // Don't hide URL result for setWebhook call
+                   elements.urlResultWrapper.style.display = 'none';
+                }
+                elements.apiResponseWrapper.className = '';
+                elements.apiResponse.textContent = translations[currentLang].apiCalling;
+                Object.values(elements.buttons).forEach(btn => btn.disabled = true);
+                
+                const url = `https://api.telegram.org/bot${token}/${endpoint}`;
+                
+                try {
+                    const response = await fetch(url, options);
+                    const data = await response.json();
+                    
+                    elements.apiResponse.textContent = JSON.stringify(data, null, 2);
+                    elements.apiResponseWrapper.classList.add(data.ok ? 'success' : 'error');
+
+                } catch (error) {
+                    elements.apiResponse.textContent = `${translations[currentLang].apiError}\n\n${error.message}\n\n${translations[currentLang].apiErrorDetails}`;
+                    elements.apiResponseWrapper.classList.add('error');
+                } finally {
+                    Object.values(elements.buttons).forEach(btn => btn.disabled = false);
+                    saveInputs();
+                }
+            };
+
+            // --- Button Event Listeners ---
+            elements.buttons.getMe.addEventListener('click', () => makeApiCall('getMe'));
+            elements.buttons.getInfo.addEventListener('click', () => makeApiCall('getWebhookInfo'));
+            elements.buttons.delete.addEventListener('click', () => makeApiCall('deleteWebhook'));
+            
+            elements.buttons.set.addEventListener('click', () => {
+                const workerUrl = elements.workerUrl.value.trim();
+                if (!workerUrl) {
+                    alert(translations[currentLang].alertWorkerUrl);
+                    return;
+                }
+                
+                const allowed = elements.allowedUpdates.value.trim();
+                const secret = elements.secretToken.value.trim();
+                
+                const requestOptions = { method: 'POST', isSetWebhook: true };
+                const formData = new FormData();
+                formData.append('url', workerUrl);
+
+                if (allowed) formData.append('allowed_updates', JSON.stringify(allowed.split(',').map(s => s.trim())));
+                if (secret) formData.append('secret_token', secret);
+
+                requestOptions.body = formData;
+
+                // Display the constructed URL and QR code
+                const webhookParams = new URLSearchParams({ url: workerUrl });
+                const constructedUrl = `https://api.telegram.org/bot${elements.botToken.value.trim()}/setWebhook?${webhookParams.toString()}`;
+                elements.resultWrapper.style.display = 'block';
+                elements.urlResultWrapper.style.display = 'flex';
+                elements.resultUrl.textContent = constructedUrl;
+                elements.qrCode.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(constructedUrl)}" alt="QR Code">`;
+                
+                makeApiCall('setWebhook', requestOptions);
+            });
+            
+            // --- Initial Load ---
+            setLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>
