@@ -2,8 +2,10 @@
 
 [**🇬🇧English**](#-english) | [**🇮🇷فارسی**](#-فارسی)
 
-#### [Bot example](https://t.me/Ip_finder_scanbot)
+#### [Bot example](https://t.me/Ip_finder_scanbot) 
+##### [Webhook setup tool](https://darknessm427.github.io/Workers/)
 #### [نمونه بات](https://t.me/Ip_finder_scanbot)
+##### [ابزار ست کردن وب هوک](https://darknessm427.github.io/Workers/)
 
 A powerful Telegram bot built on **Cloudflare Workers** to find clean IPs from Cloudflare, Fastly, and WARP services. It's fast, serverless, and easy to deploy.
 
