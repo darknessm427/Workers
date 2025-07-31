@@ -63,7 +63,7 @@ Follow these steps to deploy your own instance of the bot.
 3.  Copy the full code from the `worker.js` file of this project and paste it into the editor.
 4.  Click **Save and deploy**.
 
-#### Step 4: Set the Telegram Webhook
+#### Step 4: Set the Telegram Webhook  [Webhook setup tool](https://darknessm427.github.io/Workers/)
 
 1.  Your worker has a public URL, like `https://ip-scanner-bot.your-username.workers.dev`. Copy this URL.
 2.  Open a new browser tab and construct the following URL, replacing the placeholders:
@@ -128,7 +128,7 @@ Follow these steps to deploy your own instance of the bot.
 3.  کد کامل فایل `worker.js` این پروژه را کپی کرده و در ویرایشگر قرار دهید.
 4.  روی **Save and deploy** کلیک کنید.
 
-#### مرحله ۴: تنظیم Webhook تلگرام
+#### مرحله ۴: تنظیم Webhook تلگرام [ابزار ست کردن وب هوک](https://darknessm427.github.io/Workers/)
 
 1.  آدرس عمومی Worker شما چیزی شبیه به `https://ip-scanner-bot.your-username.workers.dev` است. این آدرس را کپی کنید.
 2.  در یک تب جدید مرورگر، آدرس زیر را بر اساس اطلاعات خود تکمیل کنید:
